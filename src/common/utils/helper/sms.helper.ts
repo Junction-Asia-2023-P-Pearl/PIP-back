@@ -25,8 +25,8 @@ const makeSignature = (time: string, method: string, service: string) => {
 export const sendMsg = async (
   msg: string,
   to: string[],
-  file: string,
-  subject: string,
+  file?: string,
+  subject?: string,
 ) => {
   let time = Date.now().toString();
   let fileId = null;

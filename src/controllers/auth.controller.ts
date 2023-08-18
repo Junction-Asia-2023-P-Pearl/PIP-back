@@ -15,11 +15,15 @@ import AuthErrors from 'src/common/errors/auth.error';
 import DefaultErrors from 'src/common/errors/defualt.error';
 import { compareCrypt, crypt } from 'src/common/utils/helper/crypt.helper';
 import { AuthService } from 'src/services/auth/auth.service';
+import { GuardianService } from 'src/services/guardian/guardian.service';
 
 @Controller('/api/auth')
 @ApiTags('인증 API')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly guardianService: GuardianService,
+  ) {}
 
   @Post('/login')
   async login(
@@ -49,20 +53,19 @@ export class AuthController {
           HttpStatus.UNAUTHORIZED,
         );
       }
-    } /* else {
-      const teacher = await this.teacherService.getTeacherByLoginId(id);
-      if (teacher && (await compareCrypt(password, teacher.password))) {
+    } else {
+      const guardian = await this.guardianService.getLoginInfo(id);
+      if (guardian && (await compareCrypt(password, guardian.password))) {
         const token = await this.authService.generateToken({
-          user: { _id: teacher._id },
+          user: { _id: guardian._id },
         });
         await this.authService.setRefreshToken({
-          user: { _id: teacher._id },
+          user: { _id: guardian._id },
           res: response,
         });
         return response.status(200).json({
           token,
-          _id: teacher._id,
-          name: teacher.name,
+          _id: guardian._id,
         });
       } else {
         throw new HttpException(
@@ -70,7 +73,7 @@ export class AuthController {
           HttpStatus.UNAUTHORIZED,
         );
       }
-    }*/
+    }
   }
 
   @UseGuards(AuthGuard('refresh'))
