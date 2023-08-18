@@ -30,7 +30,7 @@ export class MedicineController {
   //테스트용 약물 정보 생성 api
   @Post('/')
   async createMedicine(
-    @Body('medicine') medicine: { name: string; detail: string },
+    @Body() medicine: { name: string; detail: string },
   ): Promise<void> {
     await this.medicineService.create(medicine.name, medicine.detail);
   }
