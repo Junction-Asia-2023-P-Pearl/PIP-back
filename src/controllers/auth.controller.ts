@@ -11,8 +11,6 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import AuthErrors from 'src/common/errors/auth.error';
-import DefaultErrors from 'src/common/errors/defualt.error';
 import { compareCrypt, crypt } from 'src/common/utils/helper/crypt.helper';
 import { AuthService } from 'src/services/auth/auth.service';
 import { GuardianService } from 'src/services/guardian/guardian.service';
@@ -49,7 +47,7 @@ export class AuthController {
           .json({ token, _id: 'admin', name: '관리자' });
       } else {
         throw new HttpException(
-          AuthErrors.INVALID_CREDENTIALS,
+          'Invalid credentials.',
           HttpStatus.UNAUTHORIZED,
         );
       }
@@ -69,7 +67,7 @@ export class AuthController {
         });
       } else {
         throw new HttpException(
-          AuthErrors.INVALID_CREDENTIALS,
+          'Invalied credentials.',
           HttpStatus.UNAUTHORIZED,
         );
       }
