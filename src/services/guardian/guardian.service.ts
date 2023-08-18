@@ -31,10 +31,10 @@ export class GuardianService {
     });
   }
 
-  async update(request: UpdateGuardianRequestDto): Promise<void> {
-    const { _id, name, phoneNumber } = request;
+  async update(id: string, request: UpdateGuardianRequestDto): Promise<void> {
+    const { name, phoneNumber } = request;
     await this.guardianRepository.update(
-      { _id },
+      { _id: id },
       {
         name,
         phoneNumber,

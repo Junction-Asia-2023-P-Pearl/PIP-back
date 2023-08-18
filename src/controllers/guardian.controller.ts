@@ -34,9 +34,6 @@ export class GuardianController {
     @GetRequesterId() requesterId: string,
     @Body() request: UpdateGuardianRequestDto,
   ): Promise<void> {
-    await this.guardianService.update({
-      _id: requesterId,
-      ...request,
-    });
+    await this.guardianService.update(requesterId, request);
   }
 }
