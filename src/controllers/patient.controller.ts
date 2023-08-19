@@ -47,13 +47,11 @@ export class PatientController {
   }
 
   @Post('/')
-  @UseGuards(AuthGuard('adminAccess'))
   async createPatient(@Body() request: CreatePatientRequestDto): Promise<void> {
     await this.patientService.create(request);
   }
 
   @Put('/:id')
-  @UseGuards(AuthGuard('adminAccess'))
   async updatePatient(
     @Param('id') id: string,
     @Body() request: UpdatePatientRequestDto,
