@@ -3,13 +3,16 @@ import {
   Controller,
   Get,
   HttpException,
+  Post,
   Put,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { GetRequesterId } from 'src/common/auth/get_requester_id.decorator';
+import { crypt } from 'src/common/utils/helper/crypt.helper';
 import { Guardian } from 'src/entities/guardian.entity';
+import { CreateGuardianRequestDto } from 'src/services/guardian/dto/create-guardian.dto';
 import { UpdateGuardianRequestDto } from 'src/services/guardian/dto/update-guardian.dto';
 import { GuardianService } from 'src/services/guardian/guardian.service';
 
@@ -35,5 +38,14 @@ export class GuardianController {
     @Body() request: UpdateGuardianRequestDto,
   ): Promise<void> {
     await this.guardianService.update(requesterId, request);
+  }
+
+  @Post('/')
+  async create(@Body() request: CreateGuardianRequestDto): Promise<void> {
+    const hashedPwd = await crypt(request.password);
+    await this.guardianService.create({
+      ...request,
+      password: hashedPwd,
+    });
   }
 }

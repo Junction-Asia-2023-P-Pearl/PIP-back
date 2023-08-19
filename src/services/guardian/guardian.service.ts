@@ -4,6 +4,7 @@ import { Guardian } from 'src/entities/guardian.entity';
 import { Repository } from 'typeorm';
 import { GetLoginInfoResponse } from './dto/get-login-info.dto';
 import { UpdateGuardianRequestDto } from './dto/update-guardian.dto';
+import { CreateGuardianRequestDto } from './dto/create-guardian.dto';
 
 @Injectable()
 export class GuardianService {
@@ -28,6 +29,16 @@ export class GuardianService {
     return await this.guardianRepository.findOne({
       where: { _id: id },
       relations: ['patients'],
+    });
+  }
+
+  async create(request: CreateGuardianRequestDto): Promise<void> {
+    const { loginId, password, name, phoneNumber } = request;
+    await this.guardianRepository.save({
+      loginId,
+      password,
+      name,
+      phoneNumber,
     });
   }
 
