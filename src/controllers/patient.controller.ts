@@ -32,15 +32,8 @@ export class PatientController {
   }
 
   @Get('/:id')
-  async getPatient(
-    @GetRequesterId() requesterId: string,
-    @Param('id') id: string,
-  ): Promise<Patient> {
-    if (await this.patientService.checkPermission(requesterId, id)) {
-      return await this.patientService.findById(id);
-    } else {
-      throw new ForbiddenException();
-    }
+  async getPatient(@Param('id') id: string): Promise<Patient> {
+    return await this.patientService.findById(id);
   }
 
   @Post('/')
