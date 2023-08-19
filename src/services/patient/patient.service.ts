@@ -42,7 +42,7 @@ export class PatientService {
   async findById(id: string): Promise<Patient> {
     return await this.patientRepository.findOne({
       where: { _id: id },
-      relations: ['guardian', 'medicineReports'],
+      relations: ['guardian'],
     });
   }
 

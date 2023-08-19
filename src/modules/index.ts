@@ -1,4 +1,5 @@
 import { AuthModule } from './auth.module';
+import { DiagnosisModule } from './diagnosis.module';
 import { GuardianModule } from './guardian.module';
 import { MedicineReportModule } from './medicine-report.module';
 import { MedicineModule } from './medicine.module';
@@ -10,4 +11,5 @@ export default [
   MedicineModule,
   PatientModule,
   MedicineReportModule,
+  DiagnosisModule,
 ];

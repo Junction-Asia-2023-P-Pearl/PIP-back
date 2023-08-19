@@ -17,6 +17,21 @@ export class MedicineReportService {
     private readonly patientRepository: Repository<Patient>,
   ) {}
 
+  async findById(id: string): Promise<MedicineReport> {
+    return await this.medicineReportRepository.findOne({
+      where: { _id: id },
+      relations: ['medicine', 'patient'],
+    });
+  }
+
+  async findByPatientId(patientId: string): Promise<MedicineReport[]> {
+    return await this.medicineReportRepository.find({
+      where: { patient: { _id: patientId } },
+      order: { createdAt: 'DESC' },
+      relations: ['medicine'],
+    });
+  }
+
   async create(request: CreateMedicineReportRequestDto): Promise<void> {
     await this.medicineReportRepository.insert({
       amount: request.amount,

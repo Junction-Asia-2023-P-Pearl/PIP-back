@@ -12,6 +12,7 @@ import {
 import { Guardian } from './guardian.entity';
 import { MedicineReport } from './medicine-report.entity';
 import { GenderEnum } from 'src/common/enums';
+import { Diagnosis } from './diagnosis.entity';
 
 @Entity()
 export class Patient {
@@ -40,8 +41,8 @@ export class Patient {
   weight: number;
 
   @IsString()
-  @Column({ name: 'detail' })
-  detail: string;
+  @Column({ name: 'caution' })
+  caution: string;
 
   @ManyToOne(() => Guardian, (guardian) => guardian.patients)
   @JoinColumn({ name: 'guardian_id' })
@@ -49,6 +50,9 @@ export class Patient {
 
   @OneToMany(() => MedicineReport, (medicineReport) => medicineReport.patient)
   medicineReports: MedicineReport[];
+
+  @OneToMany(() => Diagnosis, (diagnosis) => diagnosis.patient)
+  diagnoses: Diagnosis[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
