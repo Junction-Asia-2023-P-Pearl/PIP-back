@@ -6,6 +6,6 @@ export interface CreatePatientRequestDto {
   gender: GenderEnum;
   height: number;
   weight: number;
-  detail: string;
+  caution: string;
   guardianId: string;
 }

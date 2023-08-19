@@ -53,7 +53,7 @@ export class PatientService {
       gender: request.gender,
       height: request.height,
       weight: request.weight,
-      detail: request.detail,
+      caution: request.caution,
       guardian: await this.guardianRepository.findOne({
         where: { _id: request.guardianId },
       }),
@@ -69,7 +69,7 @@ export class PatientService {
         gender: request.gender,
         height: request.height,
         weight: request.weight,
-        detail: request.detail,
+        caution: request.caution,
         guardian: await this.guardianRepository.findOne({
           where: { _id: request.guardianId },
         }),
