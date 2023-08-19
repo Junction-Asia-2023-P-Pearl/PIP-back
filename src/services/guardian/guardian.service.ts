@@ -18,6 +18,7 @@ export class GuardianService {
       where: { loginId: loginId },
       relations: ['patients'],
     });
+    if (!guardian) return null;
     return {
       _id: guardian._id,
       loginId: guardian.loginId,
