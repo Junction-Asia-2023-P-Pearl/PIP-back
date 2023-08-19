@@ -8,7 +8,6 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { GetRequesterId } from 'src/common/auth/get_requester_id.decorator';
 import { Patient } from 'src/entities/patient.entity';
@@ -22,7 +21,6 @@ export class PatientController {
   constructor(private readonly patientService: PatientService) {}
 
   @Get('/')
-  @UseGuards(AuthGuard('access'))
   async getAllPatient(
     @GetRequesterId() requesterId: string,
   ): Promise<Patient[]> {
@@ -34,7 +32,6 @@ export class PatientController {
   }
 
   @Get('/:id')
-  @UseGuards(AuthGuard('access'))
   async getPatient(
     @GetRequesterId() requesterId: string,
     @Param('id') id: string,

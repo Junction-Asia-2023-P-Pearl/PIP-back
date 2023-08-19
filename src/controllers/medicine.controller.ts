@@ -7,7 +7,6 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { Medicine } from 'src/entities/medicine.entity';
 import { MedicineService } from 'src/services/medicine/medicine.service';

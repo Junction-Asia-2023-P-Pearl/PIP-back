@@ -7,7 +7,6 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { GetRequesterId } from 'src/common/auth/get_requester_id.decorator';
 import { crypt } from 'src/common/utils/helper/crypt.helper';
@@ -21,7 +20,6 @@ import { GuardianService } from 'src/services/guardian/guardian.service';
 export class GuardianController {
   constructor(private readonly guardianService: GuardianService) {}
   @Get('/me')
-  @UseGuards(AuthGuard('access'))
   async getMe(@GetRequesterId() requesterId: string): Promise<Guardian> {
     const guardian = await this.guardianService.findById(requesterId);
     if (!guardian) {
@@ -32,7 +30,6 @@ export class GuardianController {
   }
 
   @Put('/me')
-  @UseGuards(AuthGuard('access'))
   async updateMe(
     @GetRequesterId() requesterId: string,
     @Body() request: UpdateGuardianRequestDto,
