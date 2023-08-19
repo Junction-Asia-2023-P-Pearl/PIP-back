@@ -30,7 +30,7 @@ export class SmsService {
     const medicine = await this.medicineRepository.findOne({
       where: { _id: medicineId },
     });
-    const message = `${patient.name}님에게 ${medicine.name}mg을 ${amount}만큼 투여했습니다.`;
+    const message = `${patient.name}님에게 ${medicine.name}을 ${amount}mg 만큼 투여했습니다.`;
     await sendMsg(message, [patient.guardian.phoneNumber]);
   }
 }
