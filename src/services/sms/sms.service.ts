@@ -30,7 +30,7 @@ export class SmsService {
     const medicine = await this.medicineRepository.findOne({
       where: { _id: medicineId },
     });
-    const message = `${patient.name} was given ${amount} mg of ${medicine.name}.\n<a href="http://do-home.duckdns.org:8090">Go To Page</a>`;
+    const message = `${patient.name} was given ${amount} mg of ${medicine.name}.`;
     await sendMsg(message, [patient.guardian.phoneNumber]);
   }
 }
